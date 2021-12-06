@@ -26,12 +26,16 @@ const typeDefs = gql`
         user:(userId: ID! || username: String): User
         userbooks:()
     }
+    # ---------------> Ask
+    input BookContent {
+        bookinfo: [Book!]
+    }
     # Post, Put and Delete Requests
     type Mutation {
-        createUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
-        saveBook(savedBooks: ID!, bookId: String!): User
-        deleteBook(savedBooks: ID!): User
+        addUser(username: String!, email: String!, password: String!): Auth
+        saveBook(newBook: BookContent!): User
+        removeBook(bookId: ID!): User
     }
 
     
