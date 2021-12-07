@@ -31,9 +31,10 @@ module.exports = {
       req.user = data; // Collect the Payload, assign it to the User 
     } catch {
       console.log('Invalid token');
-      return res.status(400).json({ message: 'invalid token!' });
+      // return res.status(400).json({ message: 'invalid token!' });
     }
 
+    return req;
     // send to next endpoint
     // next();
   },

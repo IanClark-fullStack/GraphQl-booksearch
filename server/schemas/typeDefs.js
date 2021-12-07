@@ -6,10 +6,10 @@ const typeDefs = gql`
         username: String
         email: String
         bookCount: Int
-        savedBooks: [Books]!
+        savedBooks: [Book]!
     }
     type Book {
-        bookId: ID
+        bookId: ID!
         description: String
         title: String
         image: String 
@@ -22,19 +22,23 @@ const typeDefs = gql`
     }
     # Get Requests - api routes
     type Query {
-        users: [User]
-        user:(userId: ID! || username: String): User
-        userbooks:()
+        me: User
+        # user:(userId: ID!): User
     }
     # ---------------> Ask
     input BookContent {
-        bookinfo: [Book!]
+        bookId: ID!
+        description: String
+        title: String
+        image: String 
+        link: String 
+        authors: [String]
     }
     # Post, Put and Delete Requests
     type Mutation {
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
-        saveBook(newBook: BookContent!): User
+        saveBook(content: BookContent!): User
         removeBook(bookId: ID!): User
     }
 

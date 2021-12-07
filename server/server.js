@@ -8,7 +8,7 @@ const { authMiddleware } = require('./utils/auth');
 
 // Create the connection to the Mongo DB
 const db = require('./config/connection');
-const routes = require('./routes');
+// const routes = require('./routes');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -18,7 +18,7 @@ const server = new ApolloServer({
   resolvers, 
   // Give all Resolvers access to Context 
     // Context Will then include any values defined on the Request
-  context: authMiddleware,
+  context: authMiddleware
 });
 // Bind the 2 Servers Together
 // By applying the express server as middleware 
@@ -26,7 +26,7 @@ server.applyMiddleware({ app });
 
 
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // if we're in production, serve client/build as static assets
