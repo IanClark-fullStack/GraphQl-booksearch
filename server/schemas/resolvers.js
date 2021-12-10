@@ -52,13 +52,14 @@ const resolvers = {
     // ------- PUT : Mutation 
         // save a book to a user's `savedBooks` field by adding it to the set (to prevent duplicates)
         // user comes from `req.user` created in the auth middleware function
-        saveBook: async (parent, { userId, content }, context) => {
+        saveBook: async (parent, { userId, bookToSave }, context) => {
             if (context.user) {
                 return User.findOneAndUpdate(
-                    { _id: userId }, 
+                    
+                    { _id: user.context._id }, 
                     {
                         // The book to add Variable as a Property
-                        $addToSet: { savedBooks: newBook },
+                        $push: { savedBooks: input },
                     },
                     { 
                         new: true, 
