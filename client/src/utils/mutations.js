@@ -21,6 +21,16 @@ export const ADD_USER = gql`
             user {
                 _id
                 username
+                email
+                bookCount
+                savedBooks {
+                    bookId
+                    description
+                    title
+                    image
+                    link
+                    authors
+                }
             }
         }
     }
@@ -28,11 +38,11 @@ export const ADD_USER = gql`
 
 // SAVE_BOOK Mutation - executes the saveBook set up using Apollo Server.
 export const SAVE_BOOK = gql`
-    mutation saveBook($content: BookContent!) {
-        saveBook(content: $content) {
+    mutation saveBook($input: BookContent!) {
+        saveBook(input: $input) 
+        {
             _id
             username
-            email
             bookCount
             savedBooks {
                 bookId
@@ -49,13 +59,19 @@ export const SAVE_BOOK = gql`
 
 // REMOVE_BOOK Mutation - executes the removeBook set up using Apollo Server.
 export const REMOVE_BOOK = gql`
-    mutation removeBook($bookId: ID!) {
+    mutation removeBook($bookId: String!) {
         removeBook(bookId: $bookId) {
             _id 
             username
             bookCount
-            savedBooks
+            savedBooks {
+                bookId
+                title
+                authors
+                description
+                image
+                link
+            }
         }
     }
-
 `;
