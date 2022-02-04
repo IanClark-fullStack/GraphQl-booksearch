@@ -1,5 +1,6 @@
 body {
-  font-family: 'Rubik', sans-serif;
+  font-family: nimbus-sans, sans-serif;
+  font-weight: 400;
 }
 
 h1,
@@ -8,10 +9,126 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Rubik Mono One', sans-serif;
+  font-family: minion-pro-display, serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .small {
-  font-weight: 300;
+  font-family: minion-pro-display, serif;
+  font-weight: 400;
   font-style: italic;
+}
+
+.bg-offwhite {
+  background-color: #f7f3ec;
+}
+
+.mocha {
+  color: #2c1810;
+}
+
+.subtitle {
+  color: #808080;
+}
+
+.btn-foil {
+  color: #daaa63;
+  border: 1px solid #daaa63;
+}
+.btn-foil:hover {
+  color: #2c1810;
+  background: #daaa63;
+}
+
+.nav-highlight a {
+  color: #2c1810;
+  background-color: transparent;
+}
+.nav-highlight a:hover {
+  color: #2c1810;
+}
+.nav-highlight .nav-link.active, .nav-highlight .show>.nav-link {
+  color: #daaa63;
+  background-color: transparent;
+}
+
+.btn-delete {
+  color: #8a8a8a;
+  padding: 0;
+}
+
+.btn-delete:hover {
+  border: 1px solid #2c1810;
+  color: #2c1810;
+}
+
+.btn-foil:hover {
+  color: #2c1810;
+  background: #daaa63;
+}
+
+.form-control-custom {
+  background-color: #fff;
+}
+
+.form-control-custom:focus {
+  border: #777; 
+  background-color: #fff;
+}
+
+.bookTitle {
+  font-family: minion-pro-display, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2.3rem;
+}
+
+.bookDesc {
+  font-family: nimbus-sans, sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
+  border-left: 2px solid #606060;
+  color: #606060;
+}
+
+.bookAuthor {
+  font-family: nimbus-sans, sans-serif;
+  font-weight: 200;
+  border: 0;
+  font-size: 0.85rem;
+  color: #888;
+  padding-left: 0;
+}
+.multiAuthor {
+  display: inline;
+  width: 30%;
+}
+
+.locandina{
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+}
+
+.movie_header {
+  position: relative;
+  padding: 25px;
+  height: 40%;
+}
+
+.bookRow { 
+  margin: 6vh 0;
+}
+
+
+
+.btn-readButton {
+  color: #daaa63;
+  border: 1px solid #daaa63;
+}
+.btn-readButton:hover {
+  color: #2c1810;
+  background: #daaa63;
 }

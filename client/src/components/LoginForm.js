@@ -52,13 +52,14 @@ const [login, { error }] = useMutation(LOGIN_USER);
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <Form noValidate validated={validated} onSubmit={handleFormSubmit} className='m-4 w-75'>
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your login credentials!
         </Alert>
         <Form.Group>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
+          
             type='text'
             placeholder='Your email'
             name='email'
@@ -84,7 +85,7 @@ const [login, { error }] = useMutation(LOGIN_USER);
         <Button
           disabled={!(userFormData.email && userFormData.password)}
           type='submit'
-          variant='success'>
+          variant='foil'>
           Submit
         </Button>
       </Form>

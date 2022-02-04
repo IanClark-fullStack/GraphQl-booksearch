@@ -12,15 +12,15 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
+      <Navbar bg='offwhite' className='mocha' expand='lg'>
         <Container fluid>
-          <Navbar.Brand as={Link} to='/'>
+          <Navbar.Brand as={Link} to='/' className='mocha'>
             Google Books Search
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse id='navbar'>
             <Nav className='ml-auto'>
-              <Nav.Link as={Link} to='/'>
+              <Nav.Link as={Link} to='/' className='mocha'>
                 Search For Books
               </Nav.Link>
               {/* if user is logged in show saved books and logout */}
@@ -48,7 +48,7 @@ const AppNavbar = () => {
         <Tab.Container defaultActiveKey='login'>
           <Modal.Header closeButton>
             <Modal.Title id='signup-modal'>
-              <Nav variant='pills'>
+              <Nav variant='highlight'>
                 <Nav.Item>
                   <Nav.Link eventKey='login'>Login</Nav.Link>
                 </Nav.Item>

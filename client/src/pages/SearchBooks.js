@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-
-
-import Auth from '../utils/auth';
+import { Jumbotron, Container, Col, Form, Button, Card, Accordion, Row } from 'react-bootstrap';
+import { useMutation } from '@apollo/client';
+import { SAVE_BOOK } from '../utils/mutations';
 import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
-import { SAVE_BOOK } from '../utils/mutations';
-import { useMutation } from '@apollo/client';
-
+import Auth from '../utils/auth';
 
 
 const SearchBooks = () => {
@@ -20,14 +17,17 @@ const SearchBooks = () => {
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
+  const [saveBook, { error }] = useMutation(SAVE_BOOK);
+  
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
 
   useEffect(() => {
     return () => saveBookIds(savedBookIds);
   });
-  const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
+
+  
   // create method to search for books and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -54,6 +54,7 @@ const SearchBooks = () => {
       }));
 
       setSearchedBooks(bookData);
+      
       setSearchInput('');
     } catch (err) {
       console.error(err);
@@ -82,9 +83,10 @@ const SearchBooks = () => {
       });
       // const response = await saveBook(bookToSave, token);
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      // if (!response.ok) {
+      //   console.log(response)
+      //   throw new Error('something went wrong!');
+      // }
 
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
@@ -93,11 +95,14 @@ const SearchBooks = () => {
     }
   };
 
+  
+
   return (
     <>
-      <Jumbotron fluid className='text-light bg-dark'>
+      <Jumbotron fluid className='mocha bg-offwhite'>
         <Container>
-          <h1>Search for Books!</h1>
+          <h1 className='display-1'>Build your Collection</h1>
+          <p className='subtitle'>by Title, Author or ISBN</p>
           <Form onSubmit={handleFormSubmit}>
             <Form.Row>
               <Col xs={12} md={8}>
@@ -111,7 +116,7 @@ const SearchBooks = () => {
                 />
               </Col>
               <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
+                <Button type='submit' variant='foil' size='lg'>
                   Submit Search
                 </Button>
               </Col>
@@ -126,12 +131,65 @@ const SearchBooks = () => {
             ? `Viewing ${searchedBooks.length} results:`
             : 'Search for a book to begin'}
         </h2>
-        <CardColumns>
+        
+        <Row xs={1} md={2} className='mb-4'>
+          {searchedBooks.map((book, index) => {
+            return (
+              <Card key={book.bookId} className='border-0 mx-5 mx-md-0'>
+                <Row xs={1} md={2} className='mb-4'>
+                  <Col xs={3} md={3} className='bookRow'>
+    
+                    {book.image ? (
+                      <div className='locandina' style={{backgroundImage: `url("${book.image}")`}} alt={`The cover for ${book.title}`} />
+                      // <Card.Img className='card-image-left' src={book.image} alt={`The cover for ${book.title}`} />
+                    ) : null}
+                    
+                  </Col>
+                  <Col xs={7} md={8} className='bookRow'>
+                    <Card.Body>
+                      <Card.Title className='bookTitle'>{book.title}</Card.Title>
+                      <p className='bookAuthor'>Author: {book.authors}</p>
+                        <Accordion style={{ border: 0 }}>
+
+                          <Accordion.Toggle as={Button} variant="readButton" eventKey="0">
+                              read more
+                          </Accordion.Toggle>
+
+                          {Auth.loggedIn() && (
+                            <Button
+                              disabled={savedBookIds?.some(
+                                (savedId) => savedId === book.bookId
+                              )}
+                              variant='foil'
+                              style={{marginLeft: '0.9rem'}} 
+                              onClick={() => handleSaveBook(book.bookId)}
+                            >
+                            {savedBookIds?.some((savedId) => savedId === book.bookId)
+                              ? 'In your collection'
+                              : 'Save this Book!'}
+                            </Button>
+                          )}
+                          <Accordion.Collapse eventKey="0">
+                            <Row className="align-items-md-center mb-5">
+                              <p className='subtitle ml-2'>{book.description}</p>
+                            </Row>
+                          </Accordion.Collapse>
+                        </Accordion>
+                      </Card.Body>
+                    </Col>
+                </Row>
+              </Card>
+            );
+        })}
+        
+        
+        {/* </CardGroup> */}
+        {/* <CardColumns>
           {searchedBooks.map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
                 {book.image ? (
-                  <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
+                  <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='left' />
                 ) : null}
                 <Card.Body>
                   <Card.Title>{book.title}</Card.Title>
@@ -151,7 +209,32 @@ const SearchBooks = () => {
               </Card>
             );
           })}
-        </CardColumns>
+        </CardColumns> */}
+         {/* <Col xs={12} md={10} className='mb-5'>
+                <Accordion>
+                  <Card className='border-0'> */}
+                  {/* <Card.Title className='bookTitle'>{book.title}</Card.Title>
+                  <p className='small'>Authors: {book.authors}</p> */}
+                    {/* <Card.Body>
+                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                            read more
+                        </Accordion.Toggle>
+                      </Card.Body>
+                    <Accordion.Collapse eventKey="0">
+                    
+                      <Card key={book.bookId} className='border-0'>
+                        <Row className="align-items-md-center mb-5">
+                          <Card.Body>
+                            <Card.Text className='subtitle'>{book.description}</Card.Text>
+                          </Card.Body>
+                        </Row>
+                      </Card>
+                    
+                    </Accordion.Collapse>
+                  </Card>
+              </Accordion> */}
+            {/* </Col> */}
+            </Row>
       </Container>
     </>
   );
