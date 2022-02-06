@@ -20,12 +20,10 @@ const typeDefs = gql`
         token: ID!
         user: User
     }
-    # Get Requests - api routes
+
     type Query {
         me: User
-        # user:(userId: ID!): User
     }
-    # ---------------> Ask
     input BookContent {
         bookId: String
         description: String
@@ -34,7 +32,7 @@ const typeDefs = gql`
         link: String 
         authors: [String]
     }
-    # Post, Put and Delete Requests
+    
     type Mutation {
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth

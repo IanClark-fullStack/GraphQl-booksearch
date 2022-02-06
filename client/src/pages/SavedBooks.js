@@ -1,7 +1,6 @@
 import React from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button, Accordion, Row, Col } from 'react-bootstrap';
 import { useMutation, useQuery } from '@apollo/client';
-// import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 import { GET_ME } from '../utils/queries';
@@ -10,21 +9,12 @@ import { REMOVE_BOOK } from '../utils/mutations';
 
 
 const SavedBooks = () => {
-  // Parent Level Hooks
-  // const [userData, setUserData] = useState({});
   const { loading, data } = useQuery(GET_ME);
-  
-  // userData = Either loading has finished so [] or The data we want
+
   const userData = data?.me || [];
   console.log(userData);
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
-  // use this to determine if `useEffect()` hook needs to run again
-  // const userDataLength = userData.savedBooks.length;
-  // Bring in the query to dispatch GET_ME when Loading is not True
 
-  // create function that accepts the book's mongo _id value as param and deletes the book from the database
-
-  // useMutation for REMOVE_BOOK instead 
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     console.log(bookId);
@@ -50,10 +40,6 @@ const SavedBooks = () => {
   if (loading) {
     return <h2>LOADING...</h2>;
   }
-  // Missing piece
-  // const savedBookIds = userData.savedBooks.map((el) => el.bookId);
-  // saveBookIds(savedBookIds);
-
   return (
     <>
       <Jumbotron fluid className='mocha bg-offwhite'>
@@ -77,7 +63,6 @@ const SavedBooks = () => {
     
                     {book.image ? (
                       <div className='locandina' style={{backgroundImage: `url("${book.image}")`}} alt={`The cover for ${book.title}`} />
-                      // <Card.Img className='card-image-left' src={book.image} alt={`The cover for ${book.title}`} />
                     ) : null}
                     
                   </Col>
